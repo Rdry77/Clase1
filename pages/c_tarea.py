@@ -6,7 +6,7 @@ import plotly.graph_objects as go
 import numpy as np
 
 # --- Página multipage (puedes cambiar el path/name si quieres) ---
-dash.register_page(__name__, path='/pagina2', name='Modelo logístico', order=2)
+dash.register_page(__name__, path='/pagina2', name='Pagina 2', order=2)
 
 # ---------- Helpers ----------
 def logistic_solution(t, P0, r, K):
