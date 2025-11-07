@@ -31,8 +31,8 @@ layout = dbc.Container(
                 # Columna izquierda para el texto y enlaces
                 dbc.Col(
                     [
-                        html.H2("Hola, Soy [Tu Nombre]", className="display-4 fw-bold mb-3"),
-                        html.P("Soy estudiante en el curso de [Nombre del Curso] y este es mi proyecto de Dash."),
+                        html.H2("Hola, Soy Rudy Palacios", className="display-4 fw-bold mb-3"),
+                        html.P("Soy estudiante en el curso de Tecnicas de Modelamiento y este es mi proyecto de Dash."),
                         html.P("Estoy aprendiendo a usar Dash para crear aplicaciones web interactivas y visualizaciones de datos. Me apasiona [Tus intereses relacionados con el curso, ej. la ciencia de datos, la programación o las matemáticas]."),
                         
                         # Botón "About Me"
