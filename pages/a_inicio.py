@@ -59,8 +59,9 @@ layout = dbc.Container(
                 dbc.Col(
                     [
                         html.Img(
-                            src="/assets/images/perfiluser.png", # Asegúrate de que esta imagen esté en /assets
-                            className="img-fluid rounded-circle shadow-lg" # Estilo de imagen de Bootstrap
+                            src="/assets/images/perfiluser.png",
+                            className="rounded-circle shadow-lg",
+                            style={"max-width": "550px"}   # <-- cambia este valor
                         )
                     ],
                     md=6, # Ocupa 6 de 12 columnas
