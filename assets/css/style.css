@@ -128,3 +128,40 @@ a {
 img {
   max-width: 100%;
 }
+
+
+/* Parte del nav */
+/* Fondo oscuro general */
+.offcanvas-dark {
+    background-color: #222 !important;
+    color: white !important;
+}
+
+/* Header (título del menú) */
+.offcanvas-dark .offcanvas-header {
+    background-color: #222 !important;
+    color: white !important;
+    border-bottom: 1px solid #444;
+}
+
+/* Cuerpo del panel */
+.offcanvas-dark .offcanvas-body {
+    background-color: #222 !important;
+    color: white !important;
+}
+
+/* Estilo de los links dentro del menú */
+.offcanvas-dark-links a {
+    color: #ddd !important;
+    font-size: 1.1rem;
+    padding: 10px 0;
+}
+
+.offcanvas-dark-links a:hover {
+    color: white !important;
+}
+/* Texto más pequeño en el menú del navbar */
+.nav-small-text .nav-link {
+    font-size: 0.85rem !important;   /* 🔥 ajusta el tamaño */
+    padding: 0.4rem 0.75rem !important; /* menos padding para que ocupen menos */
+}
