@@ -2,8 +2,20 @@ import dash
 from dash import html, dcc
 import dash_bootstrap_components as dbc
 
+
+
 # app = dash.Dash(__name__, use_pages=True)
-app = dash.Dash(__name__, use_pages=True, external_stylesheets=[dbc.themes.BOOTSTRAP])
+# app = dash.Dash(__name__, use_pages=True, external_stylesheets=[dbc.themes.BOOTSTRAP])
+external_stylesheets = [
+    dbc.themes.BOOTSTRAP,
+    "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css",  # Font Awesome 4.7
+]
+
+app = dash.Dash(
+    __name__,
+    use_pages=True,
+    external_stylesheets=external_stylesheets
+)
 
 app.layout = html.Div([
     html.H1("Técnicas de Modelamiento Matemático", className="app-header"),

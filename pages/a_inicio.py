@@ -2,78 +2,405 @@ import dash
 from dash import html
 import dash_bootstrap_components as dbc
 
-# Registra la página en tu aplicación, usando un orden para la navegación
-# Asegúrate de que el 'order' sea apropiado para tu navegación (ej. 1 si 'Inicio' es 0)
+# Página de inicio
 dash.register_page(__name__, path='/', name='Inicio', order=1)
 
-# Estilos CSS personalizados para el fondo y otros elementos
-# Puedes poner esto en tu archivo assets/style.css o directamente aquí en una sección de html.Style
-custom_styles = {
-    'background-image': 'url("/assets/abstract_background.png")', # Asegúrate de tener una imagen de fondo en /assets
-    'background-size': 'cover',
-    'background-position': 'center',
-    'background-repeat': 'no-repeat',
-    'padding': '50px 0',
-    'min-height': 'calc(100vh - 80px)', # Ajusta para la altura de tu navbar/footer si los tienes
-    'display': 'flex',
-    'align-items': 'center',
-}
-
-# Puedes poner los íconos de redes sociales como imágenes en tu carpeta /assets
-# y usar un html.Img para cada uno, o usar fuentes de íconos si las configuras.
-# Para este ejemplo, usaremos placeholders de texto o puedes usar iconos de Dash
-# (requeriría una configuración adicional si quieres logos exactos)
-
-layout = dbc.Container(
-    [
-        dbc.Row(
-            [
-                # Columna izquierda para el texto y enlaces
-                dbc.Col(
-                    [
-                        html.H2("Hola, Soy Rudy Palacios", className="display-4 fw-bold mb-3"),
-                        html.P("Soy estudiante en el curso de Tecnicas de Modelamiento y este es mi proyecto de Dash."),
-                        html.P("Estoy aprendiendo a usar Dash para crear aplicaciones web interactivas y visualizaciones de datos. Me apasiona [Tus intereses relacionados con el curso, ej. la ciencia de datos, la programación o las matemáticas]."),
-                        
-                        # Botón "About Me"
-                        dbc.Button(
-                            "Más Sobre Mí", 
-                            href="#", # Puedes vincular a otra sección o página si deseas
-                            color="primary", 
-                            className="btn-lg my-4"
-                        ),
-                        
-                        # Iconos de redes sociales (puedes reemplazarlos con html.Img o iconos reales)
-                        html.Div([
-                            html.A(dbc.Button(html.I(className="bi bi-linkedin"), outline=True, color="secondary", className="me-2"), href="[Enlace LinkedIn]", target="_blank"),
-                            html.A(dbc.Button(html.I(className="bi bi-github"), outline=True, color="secondary", className="me-2"), href="[Enlace GitHub]", target="_blank"),
-                            html.A(dbc.Button(html.I(className="bi bi-envelope"), outline=True, color="secondary", className="me-2"), href="mailto:[Tu Email]", target="_blank"),
-                            # Añade más enlaces si necesitas (ej. Twitter, Instagram, etc.)
-                        ], className="d-flex") # d-flex para que los botones estén en línea
-                    ],
-                    md=6, # Ocupa 6 de 12 columnas en pantallas medianas y grandes
-                    className="d-flex flex-column justify-content-center p-5" # Alineación vertical y padding
+# =========================
+#  HERO / HEADER (tipo Initio)
+# =========================
+hero_section = html.Header(
+    id="header",
+    children=html.Div(
+        id="head",
+        className="parallax d-flex align-items-center justify-content-center",
+        # Puedes controlar el fondo de este bloque con CSS en assets/styles.css
+        children=html.H1(
+            id="logo",
+            className="text-center",
+            children=[
+                html.Img(
+                    src="/assets/images/perfiluser.jpg",
+                    className="img-circle img-thumbnail mb-3",
+                    style={"width": "180px", "height": "180px", "objectFit": "cover"}
                 ),
-
-                # Columna derecha para la imagen del avatar
-                dbc.Col(
+                html.Span("Rudy Palacios", className="d-block h2 fw-bold"),
+                html.Span("Estoy aprendiendo a usar Dash para crear aplicaciones web interactivas y visualizaciones de datos. Me apasiona la ciencia de datos, la programación y el desarrollo de interfaces que hacen que los modelos matemáticos y los algoritmos de Machine Learning e Inteligencia Artificial sean accesibles y fáciles de entender.",className="lead text-center text-muted"),
+                html.Span(
                     [
-                        html.Img(
-                            src="/assets/images/perfiluser.png",
-                            className="rounded-circle shadow-lg",
-                            style={"max-width": "550px"}   # <-- cambia este valor
+                        "Estudiante de Técnicas de Modelamiento Matemático",
+                        html.Br(),
+                        html.A(
+                            "rudy.palacios@example.com",
+                            href="mailto:rudy.palacios@example.com",
+                            className="text-decoration-none"
                         )
                     ],
-                    md=6, # Ocupa 6 de 12 columnas
-                    className="d-flex justify-content-center align-items-center p-5" # Centra la imagen
+                    className="tagline text-muted"
                 ),
+            ]
+        ),
+        style={
+            # Fondo tipo parallax (ajústalo en tu CSS si quieres efecto más pro)
+            "backgroundSize": "cover",
+            "backgroundPosition": "center",
+            "backgroundRepeat": "no-repeat",
+            "minHeight": "70vh",
+        }
+    )
+)
+
+# =========================
+#  SECCIÓN TEXTO CENTRAL (lead)
+# =========================
+""" lead_section = dbc.Container(
+    dbc.Row(
+        dbc.Col(
+            html.P(
+                [
+                    "Let me tell you something my friend. Hope is a dangerous thing. ",
+                    "Hope can drive a man insane. You ",
+                    html.A("measure", href="#", className="text-decoration-none"),
+                    " yourself by the people who measure themselves by you. ",
+                    "It only took me ",
+                    html.A("six days", href="#", className="text-decoration-none"),
+                    "."
+                ],
+                className="lead text-center text-muted"
+            ),
+            md=12
+        ),
+        className="section topspace"
+    ),
+    className="mt-4"
+) """
+
+# =========================
+#  SECCIÓN SERVICES
+# =========================
+services_cards = [
+    {
+        "title": "Custom website design",
+        "text": ("I don't think they tried to market it to the billionaire, spelunking, "
+                 "base-jumping crowd. I did the same thing to Gandhi, he didn't eat for three weeks. "
+                 "I once heard a wise man say there are no perfect men."),
+    },
+    {
+        "title": "Wordpress integration",
+        "text": ("I don't think they tried to market it to the billionaire, spelunking, "
+                 "base-jumping crowd. I did the same thing to Gandhi, he didn't eat for three weeks. "
+                 "I once heard a wise man say there are no perfect men."),
+    },
+    {
+        "title": "Application development",
+        "text": ("I don't think they tried to market it to the billionaire, spelunking, "
+                 "base-jumping crowd. I did the same thing to Gandhi, he didn't eat for three weeks. "
+                 "I once heard a wise man say there are no perfect men."),
+    },
+    {
+        "title": "SEO & SEM services",
+        "text": ("I don't think they tried to market it to the billionaire, spelunking, "
+                 "base-jumping crowd. I did the same thing to Gandhi, he didn't eat for three weeks. "
+                 "I once heard a wise man say there are no perfect men."),
+    },
+]
+
+services_section = dbc.Container(
+    [
+        dbc.Row(
+            dbc.Col(
+                html.H2(
+                    html.Span("Services"),
+                    className="section-title text-center my-4"
+                ),
+                md=12
+            )
+        ),
+        dbc.Row(
+            [
+                dbc.Col(
+                    [
+                        html.H3(card["title"], className="text-center h5 fw-bold mb-3"),
+                        html.P(card["text"]),
+                        html.Div(
+                            dbc.Button(
+                                "Read more",
+                                href="#",
+                                color="primary",
+                                className="btn btn-action"
+                            ),
+                            className="text-center mt-3"
+                        )
+                    ],
+                    xs=12, sm=6, md=3,
+                    className="mb-4"
+                )
+                for card in services_cards
             ],
-            align="center", # Alinea el contenido de las columnas al centro verticalmente
-            className="g-0", # Elimina el espacio entre las columnas para un fondo continuo
-            style={'min-height': 'inherit'} # Hereda la altura mínima del contenedor padre
+            className="row section featured topspace"
         ),
     ],
-    fluid=True, # El contenedor ocupa todo el ancho de la ventana
-    className="p-0", # Elimina el padding del contenedor para que el fondo llegue a los bordes
-    style=custom_styles # Aplica los estilos de fondo
+    className="mt-4"
+)
+
+# =========================
+#  SECCIÓN RECENT WORKS
+# =========================
+""" recent_works_data = [
+    {
+        "title": "Sample title - big data solutions",
+        "details": ["Web design", "Wordpress", "Logotype"],
+        "img": "/assets/images/s1.jpg",
+        "href": "#",
+    },
+    {
+        "title": "Pure ipsum - development services for people",
+        "details": ["Web design", "Wordpress"],
+        "img": "/assets/images/s1.jpg",
+        "href": "#",
+    },
+    {
+        "title": "Lorem studios - interior and patio design",
+        "details": ["Web design", "Logotype"],
+        "img": "/assets/images/s1.jpg",
+        "href": "#",
+    },
+    {
+        "title": "Pure ipsum - development services for people",
+        "details": ["Web design", "Wordpress"],
+        "img": "/assets/images/s1.jpg",
+        "href": "#",
+    },
+    {
+        "title": "Lorem studios - interior and patio design",
+        "details": ["Web design", "Logotype"],
+        "img": "/assets/images/s1.jpg",
+        "href": "#",
+    },
+    {
+        "title": "Lorem studios - interior and patio design",
+        "details": ["Web design", "Logotype"],
+        "img": "/assets/images/s1.jpg",
+        "href": "#",
+    },
+] """
+
+""" recentworks_section = dbc.Container(
+    [
+        dbc.Row(
+            dbc.Col(
+                html.H2(
+                    html.Span("Recent Works"),
+                    className="section-title text-center my-4"
+                ),
+                md=12
+            )
+        ),
+        dbc.Row(
+            [
+                dbc.Col(
+                    html.Div(
+                        [
+                            html.A(
+                                [
+                                    html.Span(
+                                        [
+                                            html.Img(
+                                                src=item["img"],
+                                                className="img-fluid"
+                                            ),
+                                            html.Span(
+                                                html.Span(
+                                                    "See details →",
+                                                    className="more"
+                                                ),
+                                                className="cover"
+                                            )
+                                        ],
+                                        className="img d-block position-relative"
+                                    ),
+                                    html.Span(
+                                        item["title"],
+                                        className="title d-block mt-2 fw-semibold"
+                                    ),
+                                ],
+                                href=item["href"],
+                                className="thumbnail text-decoration-none d-block"
+                            ),
+                            html.Span(
+                                [
+                                    html.Span(
+                                        [
+                                            html.A(d, href="#", className="text-decoration-none")
+                                        ] + ([", "] if i < len(item["details"]) - 1 else [])
+                                    )
+                                    for i, d in enumerate(item["details"])
+                                ],
+                                className="details d-block text-muted small mt-1"
+                            ),
+                        ]
+                    ),
+                    xs=12, sm=6, md=4, lg=4,
+                    className="mb-4"
+                )
+                for item in recent_works_data
+            ],
+            className="thumbnails recentworks row"
+        )
+    ],
+    className="mt-4"
+) """
+
+# =========================
+#  FOOTER PRINCIPAL
+# =========================
+footer = html.Footer(
+    id="footer",
+    children=dbc.Container(
+        dbc.Row(
+            [
+                dbc.Col(
+                    [
+                        html.H3("Contact", className="widget-title h5"),
+                        html.Div(
+                            html.P(
+                                [
+                                    "+51 999 999 999",
+                                    html.Br(),
+                                    html.A("rudy.palacios@example.com",
+                                           href="mailto:rudy.palacios@example.com"),
+                                    html.Br(), html.Br(),
+                                    "Lima, Perú"
+                                ]
+                            ),
+                            className="widget-body"
+                        )
+                    ],
+                    md=3,
+                    className="widget mb-4"
+                ),
+                dbc.Col(
+                    [
+                        html.H3("Follow me", className="widget-title h5"),
+                        html.Div(
+                            html.P(
+                                [
+                                    html.A(html.I(className="fa fa-twitter fa-2"), href="#", className="me-2"),
+                                    html.A(html.I(className="fa fa-dribbble fa-2"), href="#", className="me-2"),
+                                    html.A(html.I(className="fa fa-github fa-2"), href="#", className="me-2"),
+                                    html.A(html.I(className="fa fa-facebook fa-2"), href="#", className="me-2"),
+                                ],
+                                className="follow-me-icons"
+                            ),
+                            className="widget-body"
+                        )
+                    ],
+                    md=3,
+                    className="widget mb-4"
+                ),
+                dbc.Col(
+                    [
+                        html.H3("Text widget", className="widget-title h5"),
+                        html.Div(
+                            html.Div(
+                                [
+                                    html.P(
+                                        "Lorem ipsum dolor sit amet, consectetur adipisicing elit. "
+                                        "Atque, nihil natus explicabo ipsum quia iste aliquid repellat eveniet "
+                                        "velit ipsa sunt libero sed aperiam id soluta officia asperiores adipisci maxime!"
+                                    ),
+                                    html.P(
+                                        "Lorem ipsum dolor sit amet, consectetur adipisicing elit. "
+                                        "Atque, nihil natus explicabo ipsum quia iste aliquid repellat eveniet "
+                                        "velit ipsa sunt libero sed aperiam id soluta officia asperiores adipisci maxime!"
+                                    ),
+                                ]
+                            ),
+                            className="widget-body"
+                        )
+                    ],
+                    md=3,
+                    className="widget mb-4"
+                ),
+                dbc.Col(
+                    [
+                        html.H3("Form widget", className="widget-title h5"),
+                        html.Div(
+                            html.P(
+                                [
+                                    "+51 999 999 999",
+                                    html.Br(),
+                                    html.A("rudy.palacios@example.com",
+                                           href="mailto:rudy.palacios@example.com"),
+                                    html.Br(), html.Br(),
+                                    "Lima, Perú"
+                                ]
+                            ),
+                            className="widget-body"
+                        )
+                    ],
+                    md=3,
+                    className="widget mb-4"
+                ),
+            ],
+            className="row"
+        )
+    ),
+    className="mt-5 pt-4 border-top"
+)
+
+# =========================
+#  UNDERFOOTER
+# =========================
+underfooter = html.Footer(
+    id="underfooter",
+    children=dbc.Container(
+        dbc.Row(
+            [
+                dbc.Col(
+                    html.Div(
+                        html.P("Lima, Perú"),
+                        className="widget-body"
+                    ),
+                    md=6,
+                    className="widget mb-2"
+                ),
+                dbc.Col(
+                    html.Div(
+                        html.P(
+                            [
+                                "Copyright © 2025, Rudy Palacios",
+                                html.Br(),
+                                "Design based on Initio template"
+                            ],
+                            className="text-md-end text-sm-start"
+                        ),
+                        className="widget-body"
+                    ),
+                    md=6,
+                    className="widget mb-2"
+                ),
+            ]
+        )
+    ),
+    className="py-3 border-top"
+)
+
+# =========================
+#  LAYOUT FINAL
+# =========================
+layout = html.Div(
+    [
+        hero_section,
+        html.Main(
+            [
+                #lead_section,
+                services_section,
+                #recentworks_section,
+            ],
+            id="main"
+        ),
+        footer,
+        underfooter
+    ],
+    className="home"
 )
